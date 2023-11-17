@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "username": "gnajerap",
+      "password": "1740523Ampa$",
+      "name": "Gerardo",
+      "lastName": "Najera Picado",
+      "email":"gnajerap@clothingpartner.com",
+      "office": "Clothing Partner LTD",
+      "department": "Merchandising",
+      "teamName": "A",
+      "reportingBoss": "Manwar Ali",
+      "reportingLocation": "Road 1 dohs baridhara",
+      "userType": "Normal user",
+      "currentDesignation": "Merchandising Manager",
+      "bloodGroup": "A+",
+      "attendanceStatus": {
+        "late": 6,
+        "absent": 2,
+        "totalLeave": 3
+      },
+      "loanStatus": "Not Applicable",
+      "companyItems": [
+        {
+          "itemType": "Laptop",
+          "details": "Model: XYZ123, Issue Date: 2023-01-15"
+        },
+        {
+          "itemType": "Mobile",
+          "details": "Model: ABC456, Issue Date: 2023-02-20"
+        }
+      ]
+    },
+    {
+      "username": "user2",
+      "password": "password2",
+      "name": "User Two",
+      "office": "Clothing Partner LTD",
+      "department": "Sales",
+      "teamName": "B",
+      "reportingBoss": "Sarah Smith",
+      "reportingLocation": "Main Street, London",
+      "userType": "Normal user",
+      "currentDesignation": "Sales Representative",
+      "bloodGroup": "B-",
+      "attendanceStatus": {
+        "late": 4,
+        "absent": 1,
+        "totalLeave": 2
+      },
+      "loanStatus": "Not Applicable",
+      "companyItems": [
+        {
+          "itemType": "Mobile",
+          "details": "Model: XYZ789, Issue Date: 2023-03-10"
+        }
+      ]
+    }
+  ]
+}
