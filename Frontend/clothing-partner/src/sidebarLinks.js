@@ -10,7 +10,7 @@ export default [
     children: [
       {
         name: 'Create User / Employee',
-        path: '/pages/createUser'
+        path: '/pages/createUser' 
       }
     ]
   },

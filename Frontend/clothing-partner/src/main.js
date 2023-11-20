@@ -65,6 +65,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  console.log('Pase por el beforeach del main: ', to.fullPath);
   const userLoged = sessionStorage.getItem('user');
   let isAuthenticated = false;
   if (userLoged) {
