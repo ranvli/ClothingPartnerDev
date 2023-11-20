@@ -48,7 +48,7 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css'
     props: {
       title: {
         type: String,
-        default: 'CP',
+        default: 'Clothing Partner  ',
         description: 'Sidebar title'
       },
       backgroundColor: {

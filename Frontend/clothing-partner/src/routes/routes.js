@@ -10,8 +10,7 @@ import User from 'src/components/Dashboard/Views/Pages/UserProfile.vue'
 import TimeLine from 'src/components/Dashboard/Views/Pages/TimeLinePage.vue'
 import Login from 'src/components/Dashboard/Views/Pages/Login.vue'
 import Register from 'src/components/Dashboard/Views/Pages/Register.vue'
-import Lock from 'src/components/Dashboard/Views/Pages/Lock.vue'
-import Prueba from 'src/components/Dashboard/Views/Pages/Prueba.vue'
+import Lock from 'src/components/Dashboard/Views/Pages/Lock.vue' 
 
 // Components pages
 import Buttons from 'src/components/Dashboard/Views/Components/Buttons.vue'
@@ -184,12 +183,6 @@ let loginPage = {
   component: Login
 }
 
-let pruebaPage = {
-  path:'/prueba',
-  name: 'Prueba',
-  component: Prueba,
-  meta: { requiresAuth: true },
-}
 
 let registerPage = {
   path: '/register',
@@ -214,7 +207,6 @@ const routes = [
   tablesMenu,
   mapsMenu,
   pagesMenu,
-  pruebaPage,
   loginPage,
   registerPage,
   lockPage,

@@ -16,13 +16,13 @@
         <collapse-transition>
           <ul class="nav nav-menu" v-show="!isClosed">
             <li>
-              <a href="#">
+              <a href="/pages/user">
                 <span class="sidebar-mini-icon">Mp</span>
                 <span class="sidebar-normal">My Profile</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="#"> 
                 <span class="sidebar-mini-icon">Ep</span>
                 <span class="sidebar-normal">Edit Profile</span>
               </a>
