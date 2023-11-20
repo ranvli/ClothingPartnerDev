@@ -5,6 +5,16 @@ export default [
     path: '/admin/overview'
   },
   {
+    name: 'Users',
+    icon: 'nc-icon nc-book-bookmark',
+    children: [
+      {
+        name: 'Create User / Employee',
+        path: '/pages/createUser'
+      }
+    ]
+  },
+  {
     name: 'Pages actions',
     icon: 'nc-icon nc-book-bookmark',
     children: [
@@ -28,13 +38,9 @@ export default [
         name: 'Lock',
         path: '/lock'
       },
-      {
-        name: 'Prueba',
-        path: '/prueba'
-      }
     ]
   },
-  {
+  /* {
     name: 'Components',
     icon: 'nc-icon nc-layout-11',
     children: [{
@@ -65,8 +71,8 @@ export default [
       name: 'Typography',
       path: '/components/typography'
     }]
-  },
-  {
+  }, */
+  /* {
     name: 'Forms',
     icon: 'nc-icon nc-ruler-pencil',
     children: [{
@@ -121,8 +127,8 @@ export default [
       path: '/maps/vector-map'
     }
     ]
-  },
-  {
+  }, */
+  /* {
     name: 'Widgets',
     icon: 'nc-icon nc-box',
     path: '/admin/widgets'
@@ -136,5 +142,5 @@ export default [
     name: 'Calendar',
     icon: 'nc-icon nc-calendar-60',
     path: '/calendar'
-  },
-]
+  },*/
+] 
