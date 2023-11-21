@@ -1,0 +1,52 @@
+Super Admin - add/edit/delete/approve everything
+Admin ( Department heads) - Only add/delete/edit/approve- team members
+Admin ( HR) 
+Admin (Finance) 
+
+
+General Employee ( On boarding form)
+Full Name 			- Text Field 
+Personal email			- Email 	+
+Company Email 			-Email  [ Hr/Admin to select ] +
+Recent Picture			- Recent Picture ( Passport size)
+Employee ID number		-  Unique Auto generated 
+Phone 				- Mobile Phone Number (+)
+Designation 			- Drop Down [ Hr/Admin to select ] 
+Department 			- Drop Down [ Hr/Admin to select ] 
+Team 				- Drop Down [ Hr/Admin to select ] 
+Supervisors name  		- Drop Down [ Hr/Admin to select ] 
+Emergency Phone 		- Phone +
+Recent Address 			- TXT Field
+Permanent address 		- TXT Field 
+Blood Group 			- Drop Down
+Date of birth 			- Date 
+Date of Joining 			- Date 
+Voter Id number                            – Scan Copy
+Passport Number 		– Scan Copy
+Driving license			– Scan Copy 
+  Salary Bank account number     - Text Field +
+Present salary ( Break up) [ Hr/Admin to select ] 
+Team A 
+…
+…..
+Wechat ID
+Whatsapp number +
+Last company NOC 
+Laptop information given by company [ Hr/Admin to select ] 
+Mobile Phone information given by company [ Hr/Admin to select ] 
+Tab information given by company [ Hr/Admin to select ] 
+Car details given by company [ Hr/Admin to select ] 
+Insurance details 
+Note - after submission of this from only super admin/Admin Finance can approve, during approval the admin will add the red highlighted sections. 
+After the form has been approved by the super admin (SA) or Admin Finance ( AF), Team Admin ( TA ) can add/delete/edit their team members, except the red highlighted area. 
+
+Goal for this database/form 
+reports 
+Team/Department wise team members, total salary, team/dept wise salary [ for Admins only]
+Generate auto letters ( appointment + Promotions Warning Of termination + general + birthday wish etc) ( admins)
+Generate ID, Business Cards [ for Admins only]
+Email all /teamwise [ for Admins only]
+SMS all or teamwise [ for Admins only]
+Leave application (user) 
+Requisition (user)
+Convenyence ( user )
