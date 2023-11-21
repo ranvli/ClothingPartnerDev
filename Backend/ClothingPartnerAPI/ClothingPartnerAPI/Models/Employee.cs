@@ -24,7 +24,7 @@ namespace ClothingPartnerAPI.Models
         public string EmergencyPhone { get; set; }
         public string RecentAddress { get; set; }
         public string PermanetAddress { get; set; }
-        public BloodGroup MyProperty { get; set; }
+        public BloodGroup BloodGroup { get; set; }
         public DateTime DataOfBirth { get; set; }
         public DateTime DataOfJoining { get; set; }
         public string VoterId { get; set; }
