@@ -68,7 +68,7 @@
             console.log('Response en Login: ', response)
             if (response.success) {
               // El inicio de sesión fue exitoso, redirigir a la página del perfil del usuario
-              this.$router.push({ name: 'User Page' });
+              this.$router.push({ name: 'User Page' }); 
             } else {
               // Manejar un inicio de sesión fallido
               // alert('Inicio de sesión fallido. Por favor, verifica tus credenciales.');

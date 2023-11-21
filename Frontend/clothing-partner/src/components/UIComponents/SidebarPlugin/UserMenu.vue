@@ -6,7 +6,7 @@
     <div class="info">
       <a data-toggle="collapse" :aria-expanded="!isClosed" @click="toggleMenu" href="#">
          <span>
-           Chet Faker
+            {{$store.state.user.name }} | {{$store.state.user.username }} 
            <b class="caret"></b>
         </span>
         <p>/src/components/UIComponents/SidebarPlugin/UserMenu.vue</p>
@@ -15,11 +15,14 @@
       <div>
         <collapse-transition>
           <ul class="nav nav-menu" v-show="!isClosed">
-            <li>
-              <a href="/pages/user">
-                <span class="sidebar-mini-icon">Mp</span>
-                <span class="sidebar-normal">My Profile</span>
-              </a>
+            <li> 
+              <router-link to="/pages/user">
+                <!-- <a href="#"> -->
+                  <span class="sidebar-mini-icon">Mp</span>
+                  <span class="sidebar-normal">My Profile</span>
+                <!-- </a> -->
+              </router-link>
+              
             </li>
             <li>
               <a href="#"> 
@@ -41,6 +44,7 @@
 </template>
 <script>
   import { CollapseTransition } from 'vue2-transitions'
+  
 
   export default {
     components: {
