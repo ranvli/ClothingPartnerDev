@@ -6,6 +6,10 @@ namespace ClothingPartnerAPI.DAL.Context
     public class ClothingPartnerContext : DbContext
     {
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Department> Department { get; set; }
+        public virtual DbSet<Designation> Designation { get; set; }
+        public virtual DbSet<Team> Team { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

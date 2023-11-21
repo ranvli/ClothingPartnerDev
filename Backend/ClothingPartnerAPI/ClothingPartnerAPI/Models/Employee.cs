@@ -19,7 +19,7 @@ namespace ClothingPartnerAPI.Models
         public Designation Designation { get; set; }
         public Department Department { get; set; }
         public Team Team { get; set; }
-        public Employee Supervisor { get; set; }
+        //public Employee Supervisor { get; set; }
 
         public string EmergencyPhone { get; set; }
         public string RecentAddress { get; set; }
