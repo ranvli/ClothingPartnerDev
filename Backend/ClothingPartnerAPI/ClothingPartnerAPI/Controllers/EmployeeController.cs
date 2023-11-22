@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ClothingPartnerAPI.DTO.Base;
 using ClothingPartnerAPI.Models;
+using ClothingPartnerAPI.Services;
 using ClothingPartnerAPI.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,7 +39,6 @@ namespace ClothingPartnerAPI.Controllers
                 response.Error.Message = "Internal Error";
                 response.Error.Code = 1;
                 return BadRequest(response);
-                throw;
             }
         }
 
@@ -60,7 +60,6 @@ namespace ClothingPartnerAPI.Controllers
                 response.Error.Message = "Internal Error";
                 response.Error.Code = 1;
                 return BadRequest(response);
-                throw;
             }
         }
 
@@ -83,7 +82,49 @@ namespace ClothingPartnerAPI.Controllers
                 response.Error.Message = "Internal Error";
                 response.Error.Code = 1;
                 return BadRequest(response);
-                throw;
+            }
+        }
+
+        [HttpDelete]
+        [Route("employee-delete")]
+        public IActionResult EmployeeDelete(int employeeId)
+        {
+            ResponseDto<List<Employee>> response = new ResponseDto<List<Employee>>();
+            
+            try
+            {
+                var result = _employeeService.Delete(employeeId);
+                response.Data = null;
+                response.ResultOkMessage = "Ok";
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                response.Error.ExceptionMessage = e.Message;
+                response.Error.Message = "Internal Error";
+                response.Error.Code = 1;
+                return BadRequest(response);
+            }
+        }
+
+        [HttpPut]
+        [Route("employee-update")]
+        public IActionResult EmployeeUpdate(int employeeId, Employee employee)
+        {
+            ResponseDto<List<Employee>> response = new ResponseDto<List<Employee>>();
+
+            try
+            {
+                _employeeService.Update(employee);
+                response.ResultOkMessage = "Ok";
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                response.Error.ExceptionMessage = e.Message;
+                response.Error.Message = "Internal Error";
+                response.Error.Code = 1;
+                return BadRequest(response);
             }
         }
     }
