@@ -94,7 +94,6 @@ namespace ClothingPartnerAPI.Controllers
             try
             {
                 var result = _employeeService.Delete(employeeId);
-                response.Data = null;
                 response.ResultOkMessage = "Ok";
                 return Ok(result);
             }
