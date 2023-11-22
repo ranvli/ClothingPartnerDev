@@ -4,5 +4,6 @@ namespace ClothingPartnerAPI.Services.Contracts
 {
     public interface IEmployeeService : IService<Employee>
     {
+
     }
 }

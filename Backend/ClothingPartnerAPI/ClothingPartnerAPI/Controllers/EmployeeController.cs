@@ -41,5 +41,50 @@ namespace ClothingPartnerAPI.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        [Route("employee-get-all")]
+        public IActionResult EmployeeGetAll()
+        { 
+            ResponseDto<List<Employee>> response = new ResponseDto<List<Employee>>();
+            try
+            {
+                var employees = _employeeService.GetAll();
+                response.Data = employees.ToList();
+                response.ResultOkMessage = "Ok";
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                response.Error.ExceptionMessage = e.Message;
+                response.Error.Message = "Internal Error";
+                response.Error.Code = 1;
+                return BadRequest(response);
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("employee-post")]
+        public IActionResult AddEmployee(Employee employee)
+        {
+            ResponseDto<List<Employee>> response = new ResponseDto<List<Employee>>();
+            Console.WriteLine(employee);
+            try
+            {
+                var result = _employeeService.Add(employee);
+                response.Data = null;
+                response.ResultOkMessage = "Ok";
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                response.Error.ExceptionMessage = e.Message;
+                response.Error.Message = "Internal Error";
+                response.Error.Code = 1;
+                return BadRequest(response);
+                throw;
+            }
+        }
     }
 }
