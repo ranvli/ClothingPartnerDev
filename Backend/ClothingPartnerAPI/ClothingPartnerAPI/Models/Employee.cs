@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ClothingPartnerAPI.Models
 {
@@ -16,8 +17,11 @@ namespace ClothingPartnerAPI.Models
 
         public string RecentPicture { get; set; }
         public string Phone { get; set; }
+        [ForeignKey("DesignationId")]
         public Designation Designation { get; set; }
+        [ForeignKey("DepartmentId")]
         public Department Department { get; set; }
+        [ForeignKey("TeamId")]
         public Team Team { get; set; }
         //public Employee Supervisor { get; set; }
 
