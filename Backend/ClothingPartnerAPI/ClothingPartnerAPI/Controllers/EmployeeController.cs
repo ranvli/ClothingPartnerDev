@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ClothingPartnerAPI.DTO;
 using ClothingPartnerAPI.DTO.Base;
 using ClothingPartnerAPI.Models;
 using ClothingPartnerAPI.Services;
@@ -47,6 +48,7 @@ namespace ClothingPartnerAPI.Controllers
         public IActionResult EmployeeGetAll()
         { 
             ResponseDto<List<Employee>> response = new ResponseDto<List<Employee>>();
+
             try
             {
                 var employees = _employeeService.GetAll();
@@ -64,17 +66,19 @@ namespace ClothingPartnerAPI.Controllers
         }
 
         [HttpPost]
-        [Route("employee-post")]
-        public IActionResult AddEmployee(Employee employee)
+        [Route("employee-add")]
+        public IActionResult AddEmployee([FromBody] EmployeeDTO employeeCreateDTO)
         {
-            ResponseDto<List<Employee>> response = new ResponseDto<List<Employee>>();
-            Console.WriteLine(employee);
+            ResponseDto<Employee> response = new ResponseDto<Employee>();
+            
             try
             {
-                var result = _employeeService.Add(employee);
-                response.Data = null;
-                response.ResultOkMessage = "Ok";
-                return Ok(result);
+                var newEmployee = _mapper.Map<Employee>(employeeCreateDTO);
+                newEmployee.Department = _departmentService.Get(employeeCreateDTO.DepartmentId);
+
+                var result = _employeeService.Add(newEmployee);
+                response.ResultOkMessage = "Employee added successfully.";
+                return Ok(response);
             }
             catch (Exception e)
             {
