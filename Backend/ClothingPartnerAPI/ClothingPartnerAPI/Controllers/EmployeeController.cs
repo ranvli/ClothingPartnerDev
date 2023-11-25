@@ -14,6 +14,7 @@ namespace ClothingPartnerAPI.Controllers
     public class EmployeeController : Controller
     {
         private IEmployeeService _employeeService;
+        private IDepartmentService _departmentService;
         private readonly IMapper _mapper;
 
         public EmployeeController(IEmployeeService employeeService)

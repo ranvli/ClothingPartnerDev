@@ -12,8 +12,11 @@ namespace ClothingPartnerAPI.DTO
 
         public string RecentPicture { get; set; }
         public string Phone { get; set; }
+        public int DesignationId { get; set; }
         public Designation Designation { get; set; }
+        public int DepartmentId { get; set; }
         public Department Department { get; set; }
+        public int TeamId { get; set; }
         public Team Team { get; set; }
         //public Employee Supervisor { get; set; }
 
