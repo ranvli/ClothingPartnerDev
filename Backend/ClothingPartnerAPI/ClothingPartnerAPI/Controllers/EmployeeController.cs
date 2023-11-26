@@ -17,10 +17,11 @@ namespace ClothingPartnerAPI.Controllers
         private IDepartmentService _departmentService;
         private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeService employeeService, IDepartmentService departmentService)
+        public EmployeeController(IEmployeeService employeeService, IDepartmentService departmentService, IMapper mapper)
         {
             _employeeService = employeeService;
             _departmentService = departmentService;
+            _mapper = mapper;
         }
 
         [HttpGet]
