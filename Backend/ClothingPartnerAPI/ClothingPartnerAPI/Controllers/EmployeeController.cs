@@ -19,12 +19,19 @@ namespace ClothingPartnerAPI.Controllers
         private ITeamService _tenantService;
         private readonly IMapper _mapper;
 
+<<<<<<< HEAD
         public EmployeeController(IEmployeeService employeeService, IDepartmentService departmentService, IDesignationService designationService, ITeamService teamService, IMapper mapper)
         {
             _employeeService = employeeService;
             _departmentService = departmentService;
             _designationService = designationService;
             _tenantService = teamService;
+=======
+        public EmployeeController(IEmployeeService employeeService, IDepartmentService departmentService, IMapper mapper)
+        {
+            _employeeService = employeeService;
+            _departmentService = departmentService;
+>>>>>>> 7169e991ac9e9d11e7193d5c1f7724858934150c
             _mapper = mapper;
         }
 

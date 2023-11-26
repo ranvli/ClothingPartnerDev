@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ClothingPartnerContext>();
 
 
-// Configurar AutoMapper
+// Configure AutoMapper
 var mapperConfig = new MapperConfiguration(cfg => {
     cfg.AddProfile<MappingProfile>();
 });
@@ -49,9 +49,9 @@ var app = builder.Build();
 //{
 app.UseSwagger();
 app.UseSwaggerUI();
-    //}
+//}
 
-    app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
