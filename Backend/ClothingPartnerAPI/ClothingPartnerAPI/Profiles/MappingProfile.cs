@@ -9,6 +9,9 @@ namespace ClothingPartnerAPI.Profiles
         public MappingProfile()
         {
             CreateMap<EmployeeDTO, Employee>();
+            CreateMap<DepartmentDTO, Department>();
+            CreateMap<DesignationDTO, Designation>();
+            CreateMap<TeamDTO, Team>();
         }
     }
 }

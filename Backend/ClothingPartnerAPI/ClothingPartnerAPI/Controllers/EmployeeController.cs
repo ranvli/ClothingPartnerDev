@@ -15,12 +15,17 @@ namespace ClothingPartnerAPI.Controllers
     {
         private IEmployeeService _employeeService;
         private IDepartmentService _departmentService;
+        private IDesignationService _designationService;
+        private ITeamService _tenantService;
         private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeService employeeService, IDepartmentService departmentService)
+        public EmployeeController(IEmployeeService employeeService, IDepartmentService departmentService, IDesignationService designationService, ITeamService teamService, IMapper mapper)
         {
             _employeeService = employeeService;
             _departmentService = departmentService;
+            _designationService = designationService;
+            _tenantService = teamService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -75,8 +80,10 @@ namespace ClothingPartnerAPI.Controllers
 
             try
             {
-                Employee newEmployee  = _mapper.Map<Employee>(employeeCreateDTO);
+                Employee newEmployee  =  _mapper.Map<Employee>(employeeCreateDTO);
                 newEmployee.Department = _departmentService.Get(employeeCreateDTO.DepartmentId);
+                newEmployee.Designation = _designationService.Get(employeeCreateDTO.DesignationId);
+                newEmployee.Team = _tenantService.Get(employeeCreateDTO.TeamId);
                 
                 
                 var result = _employeeService.Add(newEmployee);

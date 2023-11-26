@@ -18,11 +18,14 @@ namespace ClothingPartnerAPI.Models
         public string RecentPicture { get; set; }
         public string Phone { get; set; }
         [ForeignKey("DesignationId")]
-        public Designation Designation { get; set; }
+        public int DesignationId { get; set; }
+        public Designation Designation { get; set; } = new Designation();
         [ForeignKey("DepartmentId")]
-        public Department Department { get; set; }
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; } = new Department();
         [ForeignKey("TeamId")]
-        public Team Team { get; set; }
+        public int TeamId { get; set; }
+        public Team Team { get; set; } = new Team();
         //public Employee Supervisor { get; set; }
 
         public string EmergencyPhone { get; set; }

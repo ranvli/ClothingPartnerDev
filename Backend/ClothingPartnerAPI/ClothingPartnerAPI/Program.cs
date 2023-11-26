@@ -25,6 +25,7 @@ builder.Services.AddDbContext<ClothingPartnerContext>();
 var mapperConfig = new MapperConfiguration(cfg => {
     cfg.AddProfile<MappingProfile>();
 });
+
 var mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
@@ -34,6 +35,11 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IDesignationService, DesignationService>();
+builder.Services.AddScoped<IDesignationRepository, DesignationRepository>();
+builder.Services.AddScoped<ITeamService, TeamService>();
+builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+
 
 
 var app = builder.Build();
