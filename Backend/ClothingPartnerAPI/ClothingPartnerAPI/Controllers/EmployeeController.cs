@@ -16,13 +16,15 @@ namespace ClothingPartnerAPI.Controllers
         private IEmployeeService _employeeService;
         private IDepartmentService _departmentService;
         private IDesignationService _designationService;
-        private ITeamService _tenantService;
+        private ITeamService _teamService;
         private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeService employeeService, IDepartmentService departmentService, IMapper mapper)
+        public EmployeeController(IEmployeeService employeeService, IDepartmentService departmentService, IDesignationService designationService, ITeamService teamservice, IMapper mapper)
         {
             _employeeService = employeeService;
             _departmentService = departmentService;
+            _designationService = designationService;
+            _teamService = teamservice;
             _mapper = mapper;
         }
 
@@ -81,7 +83,7 @@ namespace ClothingPartnerAPI.Controllers
                 Employee newEmployee  =  _mapper.Map<Employee>(employeeCreateDTO);
                 newEmployee.Department = _departmentService.Get(employeeCreateDTO.DepartmentId);
                 newEmployee.Designation = _designationService.Get(employeeCreateDTO.DesignationId);
-                newEmployee.Team = _tenantService.Get(employeeCreateDTO.TeamId);
+                newEmployee.Team = _teamService.Get(employeeCreateDTO.TeamId);
                 
                 
                 var result = _employeeService.Add(newEmployee);
