@@ -71,12 +71,13 @@ namespace ClothingPartnerAPI.Controllers
         public IActionResult AddEmployee([FromBody] EmployeeDTO employeeCreateDTO)
         {
             ResponseDto<Employee> response = new ResponseDto<Employee>();
-            
+
             try
             {
-                var newEmployee = _mapper.Map<Employee>(employeeCreateDTO);
+                Employee newEmployee  = _mapper.Map<Employee>(employeeCreateDTO);
                 newEmployee.Department = _departmentService.Get(employeeCreateDTO.DepartmentId);
-
+                
+                
                 var result = _employeeService.Add(newEmployee);
                 response.ResultOkMessage = "Employee added successfully.";
                 return Ok(response);
