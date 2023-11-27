@@ -5,13 +5,15 @@ export default [
     path: '/admin/overview'
   },
   {
-    name: 'Users',
+    name: 'Employees',
     icon: 'nc-icon nc-book-bookmark',
     children: [
+ 
       {
         name: 'Create User / Employee',
         path: '/pages/createUser' 
-      }
+      },
+      
     ]
   },
 ] 
