@@ -122,15 +122,32 @@ namespace ClothingPartnerAPI.Controllers
 
         [HttpPut]
         [Route("employee-update")]
-        public IActionResult EmployeeUpdate(int employeeId, Employee employee)
+        public IActionResult EmployeeUpdate(int employeeId, EmployeeDTO employeeUpdateDTO)
         {
-            ResponseDto<List<Employee>> response = new ResponseDto<List<Employee>>();
+            ResponseDto<Employee> response = new ResponseDto<Employee>();
 
             try
             {
-                _employeeService.Update(employee);
-                response.ResultOkMessage = "Ok";
-                return Ok(response);
+                Employee employeeUpdate = _employeeService.Get(employeeId);
+                if (employeeUpdate != null)
+                {
+                    _mapper.Map(employeeUpdateDTO, employeeUpdate);
+
+                    employeeUpdate.Department = _departmentService.Get(employeeUpdateDTO.DepartmentId);
+                    employeeUpdate.Designation = _designationService.Get(employeeUpdateDTO.DesignationId);
+                    employeeUpdate.Team = _teamService.Get(employeeUpdateDTO.TeamId);
+
+                    _employeeService.Update(employeeUpdate);
+                    response.Data = employeeUpdate;
+                    response.ResultOkMessage = "Ok";
+                    return Ok(response);
+                }
+                else {
+                    response.Error.Message = "Employee not found.";
+                    response.Error.Code = 404; // Código de recurso no encontrado
+                    return NotFound(response);
+                }
+                
             }
             catch (Exception e)
             {
