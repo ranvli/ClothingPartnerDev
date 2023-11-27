@@ -36,7 +36,11 @@ namespace ClothingPartnerAPI.Controllers
 
             try
             {
-                var employee = _employeeService.Get(id);
+                Employee employee = _employeeService.Get(id);
+              
+                employee.Department = _departmentService.Get(employee.DepartmentId);
+                employee.Designation = _designationService.Get(employee.DesignationId);
+                employee.Team = _teamService.Get(employee.TeamId);
                 response.Data = employee;
                 response.ResultOkMessage = "Ok";
                 return Ok(response);
@@ -44,9 +48,19 @@ namespace ClothingPartnerAPI.Controllers
             catch (Exception e)
             {
                 response.Error.ExceptionMessage = e.Message;
-                response.Error.Message = "Internal Error";
-                response.Error.Code = 1;
-                return BadRequest(response);
+                
+                if (e.Message == "ErrNotFound") {
+                    response.Error.Message = "Not Found";
+                    response.Error.Code = 404;
+                    return NotFound(response);
+                }   
+                else
+                {
+                    response.Error.Message = "Internal Error";
+                    response.Error.Code = 1;
+                    return BadRequest(response);
+                }
+                
             }
         }
 
@@ -59,6 +73,12 @@ namespace ClothingPartnerAPI.Controllers
             try
             {
                 var employees = _employeeService.GetAll();
+                foreach (var employee in employees)
+                {
+                    employee.Department = _departmentService.Get(employee.DepartmentId);
+                    employee.Designation = _designationService.Get(employee.DesignationId);
+                    employee.Team = _teamService.Get(employee.TeamId);
+                }
                 response.Data = employees.ToList();
                 response.ResultOkMessage = "Ok";
                 return Ok(response);
@@ -87,6 +107,7 @@ namespace ClothingPartnerAPI.Controllers
                 
                 
                 var result = _employeeService.Add(newEmployee);
+                response.Data = newEmployee;
                 response.ResultOkMessage = "Employee added successfully.";
                 return Ok(response);
             }
@@ -103,13 +124,22 @@ namespace ClothingPartnerAPI.Controllers
         [Route("employee-delete")]
         public IActionResult EmployeeDelete(int employeeId)
         {
-            ResponseDto<List<Employee>> response = new ResponseDto<List<Employee>>();
+            ResponseDto<Employee> response = new ResponseDto<Employee>();
             
             try
             {
                 var result = _employeeService.Delete(employeeId);
-                response.ResultOkMessage = "Ok";
-                return Ok(result);
+                if (result)
+                {
+                    response.ResultOkMessage = "Ok";
+                    return Ok(response);
+                }
+                else {
+                    response.Error.Message = "Internat error, not found";
+                    response.Error.Code = 404;
+                    return NotFound(response);
+                }
+                
             }
             catch (Exception e)
             {

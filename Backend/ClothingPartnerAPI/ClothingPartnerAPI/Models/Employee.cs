@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ClothingPartnerAPI.Models
 {
@@ -18,12 +19,15 @@ namespace ClothingPartnerAPI.Models
         public string RecentPicture { get; set; }
         public string Phone { get; set; }
         [ForeignKey("DesignationId")]
+        [JsonIgnore]
         public int DesignationId { get; set; }
         public Designation Designation { get; set; } = new Designation();
         [ForeignKey("DepartmentId")]
+        [JsonIgnore]
         public int DepartmentId { get; set; }
         public Department Department { get; set; } = new Department();
         [ForeignKey("TeamId")]
+        [JsonIgnore]
         public int TeamId { get; set; }
         public Team Team { get; set; } = new Team();
         //public Employee Supervisor { get; set; }
