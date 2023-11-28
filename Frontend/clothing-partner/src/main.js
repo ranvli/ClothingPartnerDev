@@ -51,6 +51,9 @@ Vue.use(VueNotify)
 Vue.use(SideBar, {sidebarLinks: sidebarLinks})
 locale.use(lang)
 
+//Quita el mensaje del console cuando esta en modo dev
+Vue.config.productionTip = false;
+
 // configure router
 const router = new VueRouter({
   routes, // short for routes: routes
@@ -66,7 +69,14 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   console.log('Pase por el beforeach del main: ', to.fullPath);
-  const userLoged = sessionStorage.getItem('user');
+
+  store.dispatch('checkStoredUser');
+
+  // const userLoged = sessionStorage.getItem('user');
+  const userLoged = store.state.user;
+
+  console.log('userloged:', userLoged);
+
   let isAuthenticated = false;
   if (userLoged) {
     isAuthenticated = true;

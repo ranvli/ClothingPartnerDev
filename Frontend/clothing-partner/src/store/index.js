@@ -2,6 +2,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import userData from '../assets/data/users.json';
+import Cookies from 'js-cookie';
+import CryptoJS from 'crypto-js';
 
 
 Vue.use(Vuex);
@@ -15,6 +17,9 @@ const store = new Vuex.Store({
     setUser(state, user) {
       state.user = user;
     },
+    setPwd(state, pwd){
+      state.pwd = pwd;
+    },
     setToken(state, token) {
       state.token = token;
     },
@@ -27,34 +32,74 @@ const store = new Vuex.Store({
           
           if (response && response.success) {
             const { user, token } = response.data;
+
+            const encryptedUser = CryptoJS.AES.encrypt(JSON.stringify(user), 'clothingPartner').toString();
+            const encryptedPwd = CryptoJS.AES.encrypt(JSON.stringify(password), 'clothingPartner').toString();
+            const encryptedToken = CryptoJS.AES.encrypt(token, 'clothingPartner').toString(); 
+
+            Cookies.set('encryptedUser', encryptedUser, { secure: true });
+            Cookies.set('encryptedPwd', encryptedPwd, { secure: true });
+            Cookies.set('encryptedToken', encryptedToken, { secure: true });
+
             commit('setUser', user);
+            commit('setPwd', encryptedPwd)
             commit('setToken', token);
-            sessionStorage.setItem('user', user.username);
-            // sessionStorage.setItem('user', JSON.stringify(user));
-            sessionStorage.setItem('token', token);
+            // sessionStorage.setItem('user', user.username);
+            // // sessionStorage.setItem('user', JSON.stringify(user));
+            // sessionStorage.setItem('token', token);
             return {success  : true};
           } else {
             console.error('Wrong Credentials'); 
-            sessionStorage.removeItem('user');
-            sessionStorage.removeItem('token');
+            // sessionStorage.removeItem('user');
+            // sessionStorage.removeItem('token');
+            clearCookies()
             return {success  : false};
           }
         } catch (error) {
           console.error('Error al iniciar sesión', error);
-          sessionStorage.removeItem('user');
-          sessionStorage.removeItem('token');
+          // sessionStorage.removeItem('user');
+          // sessionStorage.removeItem('token');
+          clearCookies();
           return {success  : false, error};
         }
       },
       logout({ commit }){
-        sessionStorage.removeItem('user');
-        sessionStorage.removeItem('token');
+        // sessionStorage.removeItem('user');
+        // sessionStorage.removeItem('token');
+        clearCookies();
         commit('setUser', null);
+        commit('setPwd', null);
         commit('setToken', null);
 
-      }
+      },
+      checkStoredUser({ commit }) {
+
+        const encryptedUser = Cookies.get('encryptedUser');
+        const encryptedPwd = Cookies.get('encryptedPwd');
+        const encryptedToken = Cookies.get('encryptedToken');
+  
+        if (encryptedUser && encryptedToken && encryptedPwd) {
+          // Descifrar datos y actualizar el estado
+          const decryptedUser = CryptoJS.AES.decrypt(encryptedUser, 'clothingPartner').toString(CryptoJS.enc.Utf8);
+          const decryptedPwd = CryptoJS.AES.decrypt(encryptedPwd, 'clothingPartner').toString(CryptoJS.enc.Utf8);
+          const decryptedToken = CryptoJS.AES.decrypt(encryptedToken, 'clothingPartner').toString(CryptoJS.enc.Utf8);
+  
+          if (decryptedUser && decryptedToken && decryptedPwd) {
+            commit('setUser', JSON.parse(decryptedUser));
+            commit('setPwd', decryptedPwd);
+            commit('setToken', decryptedToken);
+          }
+        }
+      },
     },
   });
+
+
+  function clearCookies() {
+    Cookies.remove('encryptedUser');
+    Cookies.remove('encryptedPwd');
+    Cookies.remove('encryptedToken');
+  }
 
   function fakeLogin(username, password) {
     const { v4: uuid4 } = require('uuid');
