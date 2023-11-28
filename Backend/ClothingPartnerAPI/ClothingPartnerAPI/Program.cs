@@ -4,9 +4,10 @@ using ClothingPartnerAPI.DAL.Contracts;
 using ClothingPartnerAPI.DAL;
 using ClothingPartnerAPI.DAL.Context;
 using AutoMapper;
-using ClothingPartnerAPI.DTO;
 using ClothingPartnerAPI.Models;
 using ClothingPartnerAPI.Profiles;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,9 +41,23 @@ builder.Services.AddScoped<IDesignationRepository, DesignationRepository>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 
+builder.Services.AddTransient<IEntityTypeConfiguration<Employee>, EmployeeSeed>();
+builder.Services.AddIdentity<Employee, IdentityRole>()
+    .AddEntityFrameworkStores<ClothingPartnerContext>()
+    .AddDefaultTokenProviders();
+
 
 
 var app = builder.Build();
+
+// initial seeding
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var employeeSeed = serviceProvider.GetRequiredService<IEntityTypeConfiguration<Employee>>();
+    employeeSeed.Configure(null);
+}
+
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
