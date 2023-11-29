@@ -41,7 +41,7 @@ namespace ClothingPartnerAPI.DAL
             query = properties
                        .Aggregate(query, (current, property) => current.Include(property));
 
-            return query.AsNoTracking().ToList(); //readonly
+            return query.ToList(); //readonly
         }
 
         public void Delete(int id)

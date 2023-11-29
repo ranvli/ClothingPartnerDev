@@ -8,8 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace ClothingPartnerAPI.Models
 {
-
- public class Employee : IdentityUser
+    public class Employee : IdentityUser
     {
         [Key]
         public int EmployeeId { get; set; }
