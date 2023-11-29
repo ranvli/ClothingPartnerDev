@@ -160,6 +160,7 @@ namespace ClothingPartnerAPI.Controllers
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
@@ -169,12 +170,15 @@ namespace ClothingPartnerAPI.Controllers
             new Claim(ClaimTypes.NameIdentifier, user.Id)
         }),
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Issuer = _configuration["Jwt:Issuer"], // Asegúrate de que esto esté en tu configuración
+                Audience = _configuration["Jwt:Audience"] // Asegúrate de que esto esté en tu configuración
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
     }
 
 }

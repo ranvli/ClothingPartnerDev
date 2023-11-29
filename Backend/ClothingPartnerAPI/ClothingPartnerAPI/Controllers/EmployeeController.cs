@@ -4,10 +4,11 @@ using ClothingPartnerAPI.DTO.Base;
 using ClothingPartnerAPI.Models;
 using ClothingPartnerAPI.Services;
 using ClothingPartnerAPI.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClothingPartnerAPI.Controllers
-{
+{ 
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
@@ -30,15 +31,16 @@ namespace ClothingPartnerAPI.Controllers
 
         [HttpGet]
         [Route("employee-get-by-id")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult EmployeeGetById(int id)
         {
-            ResponseDto<Employee> response = new ResponseDto<Employee>();
+            ResponseDTO<Employee> response = new ResponseDTO<Employee>();
 
             try
             {
                 Employee employee = _employeeService.Get(id);
                 response.Data = employee;
-                response.ResultOkMessage = "Ok";
+                response.Message = "Ok";
                 return Ok(response);
             }
             catch (Exception e)
@@ -61,15 +63,16 @@ namespace ClothingPartnerAPI.Controllers
 
         [HttpGet]
         [Route("employee-get-all")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult EmployeeGetAll()
         { 
-            ResponseDto<List<Employee>> response = new ResponseDto<List<Employee>>();
+            ResponseDTO<List<Employee>> response = new ResponseDTO<List<Employee>>();
 
             try
             {
                 var employees = _employeeService.GetAll();
                 response.Data = employees.ToList();
-                response.ResultOkMessage = "Ok";
+                response.Message = "Ok";
                 return Ok(response);
             }
             catch (Exception e)
@@ -83,9 +86,10 @@ namespace ClothingPartnerAPI.Controllers
 
         [HttpPost]
         [Route("employee-add")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult AddEmployee([FromBody] EmployeeDTO employeeCreateDTO)
         {
-            ResponseDto<Employee> response = new ResponseDto<Employee>();
+            ResponseDTO<Employee> response = new ResponseDTO<Employee>();
 
             try
             {
@@ -96,7 +100,7 @@ namespace ClothingPartnerAPI.Controllers
                 
                 var result = _employeeService.Add(newEmployee);
                 response.Data = newEmployee;
-                response.ResultOkMessage = "Employee added successfully.";
+                response.Message = "Employee added successfully.";
                 return Ok(response);
             }
             catch (Exception e)
@@ -110,16 +114,17 @@ namespace ClothingPartnerAPI.Controllers
 
         [HttpDelete]
         [Route("employee-delete")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult EmployeeDelete(int employeeId)
         {
-            ResponseDto<Employee> response = new ResponseDto<Employee>();
+            ResponseDTO<Employee> response = new ResponseDTO<Employee>();
             
             try
             {
                 var result = _employeeService.Delete(employeeId);
                 if (result)
                 {
-                    response.ResultOkMessage = "Ok";
+                    response.Message = "Ok";
                     return Ok(response);
                 }
                 else {
@@ -139,9 +144,10 @@ namespace ClothingPartnerAPI.Controllers
 
         [HttpPut]
         [Route("employee-update")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult EmployeeUpdate(int employeeId, EmployeeDTO employeeUpdateDTO)
         {
-            ResponseDto<Employee> response = new ResponseDto<Employee>();
+            ResponseDTO<Employee> response = new ResponseDTO<Employee>();
 
             try
             {
@@ -156,7 +162,7 @@ namespace ClothingPartnerAPI.Controllers
 
                     _employeeService.Update(employeeUpdate);
                     response.Data = employeeUpdate;
-                    response.ResultOkMessage = "Ok";
+                    response.Message = "Ok";
                     return Ok(response);
                 }
                 else {
