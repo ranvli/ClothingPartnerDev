@@ -32,13 +32,13 @@ namespace ClothingPartnerAPI.Controllers
         [Route("employee-get-by-id")]
         public IActionResult EmployeeGetById(int id)
         {
-            ResponseDTO<Employee> response = new ResponseDTO<Employee>();
+            ResponseDto<Employee> response = new ResponseDto<Employee>();
 
             try
             {
                 Employee employee = _employeeService.Get(id);
                 response.Data = employee;
-                response.Message = "Ok";
+                response.ResultOkMessage = "Ok";
                 return Ok(response);
             }
             catch (Exception e)
@@ -63,13 +63,13 @@ namespace ClothingPartnerAPI.Controllers
         [Route("employee-get-all")]
         public IActionResult EmployeeGetAll()
         { 
-            ResponseDTO<List<Employee>> response = new ResponseDTO<List<Employee>>();
+            ResponseDto<List<Employee>> response = new ResponseDto<List<Employee>>();
 
             try
             {
                 var employees = _employeeService.GetAll();
                 response.Data = employees.ToList();
-                response.Message = "Ok";
+                response.ResultOkMessage = "Ok";
                 return Ok(response);
             }
             catch (Exception e)
@@ -85,7 +85,7 @@ namespace ClothingPartnerAPI.Controllers
         [Route("employee-add")]
         public IActionResult AddEmployee([FromBody] EmployeeDTO employeeCreateDTO)
         {
-            ResponseDTO<Employee> response = new ResponseDTO<Employee>();
+            ResponseDto<Employee> response = new ResponseDto<Employee>();
 
             try
             {
@@ -96,7 +96,7 @@ namespace ClothingPartnerAPI.Controllers
                 
                 var result = _employeeService.Add(newEmployee);
                 response.Data = newEmployee;
-                response.Message = "Employee added successfully.";
+                response.ResultOkMessage = "Employee added successfully.";
                 return Ok(response);
             }
             catch (Exception e)
@@ -112,14 +112,14 @@ namespace ClothingPartnerAPI.Controllers
         [Route("employee-delete")]
         public IActionResult EmployeeDelete(int employeeId)
         {
-            ResponseDTO<Employee> response = new ResponseDTO<Employee>();
+            ResponseDto<Employee> response = new ResponseDto<Employee>();
             
             try
             {
                 var result = _employeeService.Delete(employeeId);
                 if (result)
                 {
-                    response.Message = "Ok";
+                    response.ResultOkMessage = "Ok";
                     return Ok(response);
                 }
                 else {
@@ -141,7 +141,7 @@ namespace ClothingPartnerAPI.Controllers
         [Route("employee-update")]
         public IActionResult EmployeeUpdate(int employeeId, EmployeeDTO employeeUpdateDTO)
         {
-            ResponseDTO<Employee> response = new ResponseDTO<Employee>();
+            ResponseDto<Employee> response = new ResponseDto<Employee>();
 
             try
             {
@@ -156,7 +156,7 @@ namespace ClothingPartnerAPI.Controllers
 
                     _employeeService.Update(employeeUpdate);
                     response.Data = employeeUpdate;
-                    response.Message = "Ok";
+                    response.ResultOkMessage = "Ok";
                     return Ok(response);
                 }
                 else {
