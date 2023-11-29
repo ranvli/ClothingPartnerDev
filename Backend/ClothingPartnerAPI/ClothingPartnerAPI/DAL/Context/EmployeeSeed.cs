@@ -18,22 +18,31 @@ namespace ClothingPartnerAPI.DAL.Context
         {
             var initialUser = new Employee
             {
-                UserName = "ranvli",
-                Email = "ranvli@ranvli.com",
+                UserName = "admin",
+                Email = "admin@admin.com",
             };
 
             // Add initial user to db
+            bool initialSeed = false;
             var existingUser = _userManager.FindByNameAsync(initialUser.UserName).Result;
-            if (existingUser == null)
+            
+            if (initialSeed && existingUser == null)
             {
-                var result = _userManager.CreateAsync(initialUser, "Pa$$w0rd").Result;
-                if (result.Succeeded)
+                try
                 {
-                    // User created successfully
+                    var result = _userManager.CreateAsync(initialUser, "Pa$$w0rd").Result;
+                    if (result.Succeeded)
+                    {
+                        // User created successfully
+                    }
+                    else
+                    {
+                        throw new Exception("Error creating initial user.");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    throw new Exception("Error creating initial user.");
+                    throw;
                 }
             }
         }
