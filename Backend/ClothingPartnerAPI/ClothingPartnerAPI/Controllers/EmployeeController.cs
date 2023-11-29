@@ -32,13 +32,13 @@ namespace ClothingPartnerAPI.Controllers
         [Route("employee-get-by-id")]
         public IActionResult EmployeeGetById(int id)
         {
-            ResponseDto<Employee> response = new ResponseDto<Employee>();
+            ResponseDTO<Employee> response = new ResponseDTO<Employee>();
 
             try
             {
                 Employee employee = _employeeService.Get(id);
                 response.Data = employee;
-                response.ResultOkMessage = "Ok";
+                response.Message = "Ok";
                 return Ok(response);
             }
             catch (Exception e)
@@ -56,7 +56,6 @@ namespace ClothingPartnerAPI.Controllers
                     response.Error.Code = 400;
                     return BadRequest(response);
                 }
-                
             }
         }
 
@@ -64,13 +63,13 @@ namespace ClothingPartnerAPI.Controllers
         [Route("employee-get-all")]
         public IActionResult EmployeeGetAll()
         { 
-            ResponseDto<List<Employee>> response = new ResponseDto<List<Employee>>();
+            ResponseDTO<List<Employee>> response = new ResponseDTO<List<Employee>>();
 
             try
             {
                 var employees = _employeeService.GetAll();
                 response.Data = employees.ToList();
-                response.ResultOkMessage = "Ok";
+                response.Message = "Ok";
                 return Ok(response);
             }
             catch (Exception e)
@@ -86,7 +85,7 @@ namespace ClothingPartnerAPI.Controllers
         [Route("employee-add")]
         public IActionResult AddEmployee([FromBody] EmployeeDTO employeeCreateDTO)
         {
-            ResponseDto<Employee> response = new ResponseDto<Employee>();
+            ResponseDTO<Employee> response = new ResponseDTO<Employee>();
 
             try
             {
@@ -97,7 +96,7 @@ namespace ClothingPartnerAPI.Controllers
                 
                 var result = _employeeService.Add(newEmployee);
                 response.Data = newEmployee;
-                response.ResultOkMessage = "Employee added successfully.";
+                response.Message = "Employee added successfully.";
                 return Ok(response);
             }
             catch (Exception e)
@@ -113,14 +112,14 @@ namespace ClothingPartnerAPI.Controllers
         [Route("employee-delete")]
         public IActionResult EmployeeDelete(int employeeId)
         {
-            ResponseDto<Employee> response = new ResponseDto<Employee>();
+            ResponseDTO<Employee> response = new ResponseDTO<Employee>();
             
             try
             {
                 var result = _employeeService.Delete(employeeId);
                 if (result)
                 {
-                    response.ResultOkMessage = "Ok";
+                    response.Message = "Ok";
                     return Ok(response);
                 }
                 else {
@@ -128,7 +127,6 @@ namespace ClothingPartnerAPI.Controllers
                     response.Error.Code = 404;
                     return NotFound(response);
                 }
-                
             }
             catch (Exception e)
             {
@@ -143,7 +141,7 @@ namespace ClothingPartnerAPI.Controllers
         [Route("employee-update")]
         public IActionResult EmployeeUpdate(int employeeId, EmployeeDTO employeeUpdateDTO)
         {
-            ResponseDto<Employee> response = new ResponseDto<Employee>();
+            ResponseDTO<Employee> response = new ResponseDTO<Employee>();
 
             try
             {
@@ -158,7 +156,7 @@ namespace ClothingPartnerAPI.Controllers
 
                     _employeeService.Update(employeeUpdate);
                     response.Data = employeeUpdate;
-                    response.ResultOkMessage = "Ok";
+                    response.Message = "Ok";
                     return Ok(response);
                 }
                 else {

@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace ClothingPartnerAPI.Models
 {
-    public class Employee : IdentityUser
+    public class Employee
     {
         [Key]
         public int EmployeeId { get; set; }
@@ -19,27 +19,24 @@ namespace ClothingPartnerAPI.Models
         public string RecentPicture { get; set; }
         public string Phone { get; set; }
 
-        [ForeignKey("DesignationId")]
         [JsonIgnore]
         public int DesignationId { get; set; }
-        public virtual Designation Designation { get; set; } = new Designation();
+        public virtual Designation Designation { get; set; }
 
-        [ForeignKey("DepartmentId")]
         [JsonIgnore]
         public int DepartmentId { get; set; }
-        public virtual Department Department { get; set; } = new Department();
+        public virtual Department Department { get; set; }
 
-        [ForeignKey("TeamId")]
         [JsonIgnore]
         public int TeamId { get; set; }
-        public virtual Team Team { get; set; } = new Team();
+        public virtual Team Team { get; set; }
 
         public string EmergencyPhone { get; set; }
         public string RecentAddress { get; set; }
-        public string PermanetAddress { get; set; }
+        public string PermanentAddress { get; set; }
         public virtual BloodGroup BloodGroup { get; set; }
-        public DateTime DataOfBirth { get; set; }
-        public DateTime DataOfJoining { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfJoining { get; set; }
         public string VoterId { get; set; }
         public string PassportNumber { get; set; }
         public string DrivingLicense { get; set; }

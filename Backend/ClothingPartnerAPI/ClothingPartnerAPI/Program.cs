@@ -19,7 +19,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //register db context
-builder.Services.AddDbContext<ClothingPartnerContext>();
+builder.Services.AddDbContext<ClothingPartnerContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 // Configure AutoMapper
@@ -41,9 +44,9 @@ builder.Services.AddScoped<IDesignationRepository, DesignationRepository>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 
-builder.Services.AddTransient<IEntityTypeConfiguration<Employee>, EmployeeSeed>();
-builder.Services.AddIdentity<Employee, IdentityRole>()
-    .AddEntityFrameworkStores<ClothingPartnerContext>()
+builder.Services.AddTransient<IEntityTypeConfiguration<ApplicationUser>, UserSeed>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
 
@@ -54,7 +57,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var serviceProvider = scope.ServiceProvider;
-    var employeeSeed = serviceProvider.GetRequiredService<IEntityTypeConfiguration<Employee>>();
+    var employeeSeed = serviceProvider.GetRequiredService<IEntityTypeConfiguration<ApplicationUser>>();
     employeeSeed.Configure(null);
 }
 

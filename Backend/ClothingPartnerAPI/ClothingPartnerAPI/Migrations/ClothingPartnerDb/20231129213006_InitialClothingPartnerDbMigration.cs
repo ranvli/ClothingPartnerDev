@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ClothingPartnerAPI.Migrations
+namespace ClothingPartnerAPI.Migrations.ClothingPartnerDb
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class InitialClothingPartnerDbMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -66,10 +66,10 @@ namespace ClothingPartnerAPI.Migrations
                     TeamId = table.Column<int>(type: "int", nullable: false),
                     EmergencyPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RecentAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PermanetAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MyProperty = table.Column<int>(type: "int", nullable: false),
-                    DataOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DataOfJoining = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PermanentAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BloodGroup = table.Column<int>(type: "int", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateOfJoining = table.Column<DateTime>(type: "datetime2", nullable: false),
                     VoterId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PassportNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DrivingLicense = table.Column<string>(type: "nvarchar(max)", nullable: false),
