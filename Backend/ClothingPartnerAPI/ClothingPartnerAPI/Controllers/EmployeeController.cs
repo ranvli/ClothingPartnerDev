@@ -37,10 +37,6 @@ namespace ClothingPartnerAPI.Controllers
             try
             {
                 Employee employee = _employeeService.Get(id);
-              
-                employee.Department = _departmentService.Get(employee.DepartmentId);
-                employee.Designation = _designationService.Get(employee.DesignationId);
-                employee.Team = _teamService.Get(employee.TeamId);
                 response.Data = employee;
                 response.ResultOkMessage = "Ok";
                 return Ok(response);
@@ -57,7 +53,7 @@ namespace ClothingPartnerAPI.Controllers
                 else
                 {
                     response.Error.Message = "Internal Error";
-                    response.Error.Code = 1;
+                    response.Error.Code = 400;
                     return BadRequest(response);
                 }
                 
@@ -73,12 +69,6 @@ namespace ClothingPartnerAPI.Controllers
             try
             {
                 var employees = _employeeService.GetAll();
-                foreach (var employee in employees)
-                {
-                    employee.Department = _departmentService.Get(employee.DepartmentId);
-                    employee.Designation = _designationService.Get(employee.DesignationId);
-                    employee.Team = _teamService.Get(employee.TeamId);
-                }
                 response.Data = employees.ToList();
                 response.ResultOkMessage = "Ok";
                 return Ok(response);
@@ -104,7 +94,6 @@ namespace ClothingPartnerAPI.Controllers
                 newEmployee.Department = _departmentService.Get(employeeCreateDTO.DepartmentId);
                 newEmployee.Designation = _designationService.Get(employeeCreateDTO.DesignationId);
                 newEmployee.Team = _teamService.Get(employeeCreateDTO.TeamId);
-                
                 
                 var result = _employeeService.Add(newEmployee);
                 response.Data = newEmployee;
