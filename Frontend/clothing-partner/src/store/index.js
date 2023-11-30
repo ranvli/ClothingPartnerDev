@@ -9,8 +9,8 @@ import axios from 'axios';
 
 Vue.use(Vuex);
 
-// const apiUrl = "http://4.157.254.214:8080/api/Auth/user-login";
-const apiUrl = "https://localhost:8080/api/Auth/user-login";
+const apiUrl = "http://4.157.254.214:8080/api/Auth/user-login";
+//const apiUrl = "https://localhost:8080/api/Auth/user-login";
 
 const store = new Vuex.Store({
   state: {
@@ -33,12 +33,12 @@ const store = new Vuex.Store({
         try {
           //const response = await fakeLogin(username, password);
           const response = await login(username, password);
-          console.log('Response: ',response)
+          console.log('Response loginUser en Store: ',response)
           
           if (response && response.success) {
-            const { user, token } = response.data;
+            const { token } = response.loginResponse.data;
 
-            const encryptedUser = CryptoJS.AES.encrypt(JSON.stringify(user), 'clothingPartner').toString();
+            const encryptedUser = CryptoJS.AES.encrypt(JSON.stringify(username), 'clothingPartner').toString();
             const encryptedPwd = CryptoJS.AES.encrypt(JSON.stringify(password), 'clothingPartner').toString();
             const encryptedToken = CryptoJS.AES.encrypt(token, 'clothingPartner').toString(); 
 
@@ -46,7 +46,7 @@ const store = new Vuex.Store({
             Cookies.set('encryptedPwd', encryptedPwd, { secure: true });
             Cookies.set('encryptedToken', encryptedToken, { secure: true });
 
-            commit('setUser', user);
+            commit('setUser', username);
             commit('setPwd', encryptedPwd)
             commit('setToken', token);
             // sessionStorage.setItem('user', user.username);
@@ -112,14 +112,10 @@ const store = new Vuex.Store({
       const loginUrl = `${apiUrl}?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
 
       const response = await axios.post(loginUrl);
-      console.log('Response en login: ',response.data);
+      console.log('Response en funcion login store: ',response);
 
       if (response.status === 200) {
-        const data = response.data;
-        // Realiza acciones según la respuesta del API
-        commit('setUser', data.user);
-        commit('setToken', data.token);
-        return { success: true };
+        return { loginResponse: response, success: true };
       } else {
         console.error('Error on API request');
         return { success: false };

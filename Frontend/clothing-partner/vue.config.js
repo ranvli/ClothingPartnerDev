@@ -4,17 +4,6 @@ function resolveSrc(_path) {
   return path.join(__dirname, _path)
 }
 module.exports = {
-  devServer: {
-    proxy: {
-      '/api': {
-        target: 'https://localhost:7214/',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': '/api',
-        },
-      },
-    },
-  },
   configureWebpack: {
     // Set up all the aliases we use in our app.
     resolve: {

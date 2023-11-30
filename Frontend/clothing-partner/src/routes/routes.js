@@ -31,6 +31,10 @@ const Wizard = () => import(/* webpackChunkName: "forms" */ 'src/components/Dash
 const RegularTables = () => import(/* webpackChunkName: "tables" */ 'src/components/Dashboard/Views/Tables/RegularTables.vue');
 const ExtendedTables = () => import(/* webpackChunkName: "tables" */ 'src/components/Dashboard/Views/Tables/ExtendedTables.vue');
 const PaginatedTables = () => import(/* webpackChunkName: "tables" */ 'src/components/Dashboard/Views/Tables/PaginatedTables.vue');
+
+//Custom Paginated tables
+const EmployessTable = () => import('src/components/Dashboard/Views/Tables/EmployeesTable.vue');
+
 // Maps pages
 const GoogleMaps = () => import(/* webpackChunkName: "maps" */ 'src/components/Dashboard/Views/Maps/GoogleMaps.vue')
 const FullScreenMap = () => import(/* webpackChunkName: "maps" */ 'src/components/Dashboard/Views/Maps/FullScreenMap.vue')
@@ -109,6 +113,19 @@ let formsMenu = {
       path: 'wizard',
       name: 'Wizard',
       component: Wizard
+    }
+  ]
+}
+
+let employeesMenu = {
+  path: 'employees',
+  component: DashboardLayout,
+  redirect: '/employees',
+  children : [
+    {
+      path: 'paginated',
+      name: 'Paginated Tables',
+      component: PaginatedTables
     }
   ]
 }
@@ -203,6 +220,7 @@ const routes = [
     redirect: '/login'
   },
   componentsMenu,
+  employeesMenu,
   formsMenu,
   tablesMenu,
   mapsMenu,

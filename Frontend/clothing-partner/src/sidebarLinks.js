@@ -11,7 +11,7 @@ export default [
  
       {
         name: 'Create User / Employee',
-        path: '/pages/createUser' 
+        path: '/pages/employeesTable' 
       },
       
     ]

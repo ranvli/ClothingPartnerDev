@@ -65,7 +65,7 @@
         // calling "loginUser" in Vuex
         this.loginUser({ username: this.form.username, password: this.form.password })
           .then((response) => {
-            console.log('Response en Login: ', response)
+            console.log('Response en Pantalla Login: ', response)
             if (response.success) {
               // El inicio de sesión fue exitoso, redirigir a la página del perfil del usuario
               this.$router.push({ name: 'User Page' }); 
