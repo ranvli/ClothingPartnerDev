@@ -103,6 +103,16 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Add CORS service
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
@@ -121,6 +131,8 @@ using (var scope = app.Services.CreateScope())
 app.UseSwagger();
 app.UseSwaggerUI();
 //}
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 
