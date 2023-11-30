@@ -155,7 +155,7 @@ namespace ClothingPartnerAPI.Controllers
                 if (employeeUpdate != null)
                 {
                     _mapper.Map(employeeUpdateDTO, employeeUpdate);
-
+                    employeeUpdate.EmployeeId = employeeId;
                     employeeUpdate.Department = _departmentService.Get(employeeUpdateDTO.DepartmentId);
                     employeeUpdate.Designation = _designationService.Get(employeeUpdateDTO.DesignationId);
                     employeeUpdate.Team = _teamService.Get(employeeUpdateDTO.TeamId);
