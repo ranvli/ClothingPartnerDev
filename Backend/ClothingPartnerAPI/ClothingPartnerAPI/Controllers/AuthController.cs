@@ -2,6 +2,7 @@
 using ClothingPartnerAPI.DTO.Base;
 using ClothingPartnerAPI.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,7 @@ namespace ClothingPartnerAPI.Controllers
 
         [HttpPost]
         [Route("user-login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(string username, string password)
         {
             var result = await _signInManager.PasswordSignInAsync(username, password, false, false);
@@ -52,6 +54,7 @@ namespace ClothingPartnerAPI.Controllers
         // POST: api/Auth/Register
         [HttpPost]
         [Route("user-register")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> Register(string email, string username, string password)
         {
             var userExists = await _userManager.FindByNameAsync(username);
@@ -75,6 +78,7 @@ namespace ClothingPartnerAPI.Controllers
         // PUT : api/Auth/Update
         [HttpPut]
         [Route("user-update")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> Update(string username, string email)
         {
             var user = await _userManager.FindByNameAsync(username);
@@ -94,6 +98,7 @@ namespace ClothingPartnerAPI.Controllers
         // DELETE : api/Auth/Delete
         [HttpDelete]
         [Route("user-delete")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> Delete(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
@@ -110,6 +115,7 @@ namespace ClothingPartnerAPI.Controllers
         // POST: api/Auth/Logout
         [HttpPost]
         [Route("user-logout")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
@@ -119,6 +125,7 @@ namespace ClothingPartnerAPI.Controllers
         // POST: api/Auth/ChangePassword
         [HttpPost]
         [Route("user-change-password")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> ChangePassword(string username, string oldPassword, string newPassword)
         {
             var user = await _userManager.FindByNameAsync(username);
@@ -135,6 +142,7 @@ namespace ClothingPartnerAPI.Controllers
         // GET: api/Auth/GetUser
         [HttpGet]
         [Route("user-get")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> GetUser(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
@@ -147,6 +155,7 @@ namespace ClothingPartnerAPI.Controllers
         // GET: api/Auth/GetUsers
         [HttpGet]
         [Route("user-get-all")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> GetUsers()
         {
             var users = await _userManager.Users.ToListAsync();
