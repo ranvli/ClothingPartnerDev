@@ -4,9 +4,12 @@ import Vuex from 'vuex';
 import userData from '../assets/data/users.json';
 import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
+import axios from 'axios';
 
 
 Vue.use(Vuex);
+
+const apiUrl = "http://4.157.254.214:8080/api/Auth/user-login";
 
 const store = new Vuex.Store({
   state: {
@@ -27,7 +30,8 @@ const store = new Vuex.Store({
   actions: {
     async loginUser({ commit }, { username, password }) {
         try {
-          const response = await fakeLogin(username, password);
+          //const response = await fakeLogin(username, password);
+          const response = await login(username, password);
           console.log('Response: ',response)
           
           if (response && response.success) {
@@ -99,6 +103,30 @@ const store = new Vuex.Store({
     Cookies.remove('encryptedUser');
     Cookies.remove('encryptedPwd');
     Cookies.remove('encryptedToken');
+  }
+
+
+  async function login(username, password) {
+    try {
+      const loginUrl = `${apiUrl}?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+
+      const response = await axios.post(loginUrl);
+      console.log('Response en login: ',response.data);
+
+      if (response.status === 200) {
+        const data = response.data;
+        // Realiza acciones según la respuesta del API
+        commit('setUser', data.user);
+        commit('setToken', data.token);
+        return { success: true };
+      } else {
+        console.error('Error on API request');
+        return { success: false };
+      }
+    } catch (error) {
+      console.error('Error trying to login: ', error);
+      return { success: false, error };
+    }
   }
 
   function fakeLogin(username, password) {
