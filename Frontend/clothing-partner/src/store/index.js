@@ -9,7 +9,8 @@ import axios from 'axios';
 
 Vue.use(Vuex);
 
-const apiUrl = "http://4.157.254.214:8080/api/Auth/user-login";
+// const apiUrl = "http://4.157.254.214:8080/api/Auth/user-login";
+const apiUrl = "https://localhost:8080/api/Auth/user-login";
 
 const store = new Vuex.Store({
   state: {
