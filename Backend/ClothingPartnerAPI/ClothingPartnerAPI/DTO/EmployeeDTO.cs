@@ -7,6 +7,8 @@ namespace ClothingPartnerAPI.DTO
     {
         public int EmployeeId { get; set; }
         public string FullName { get; set; }
+
+        public string Password { get; set; }
         public string? PersonalEmail { get; set; }
         public string CompanyEmail { get; set; }
 

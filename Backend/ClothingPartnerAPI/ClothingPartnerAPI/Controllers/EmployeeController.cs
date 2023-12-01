@@ -5,6 +5,7 @@ using ClothingPartnerAPI.Models;
 using ClothingPartnerAPI.Services;
 using ClothingPartnerAPI.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClothingPartnerAPI.Controllers
@@ -18,10 +19,12 @@ namespace ClothingPartnerAPI.Controllers
         private IDepartmentService _departmentService;
         private IDesignationService _designationService;
         private ITeamService _teamService;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeService employeeService, IDepartmentService departmentService, IDesignationService designationService, ITeamService teamservice, IMapper mapper)
+        public EmployeeController(UserManager<ApplicationUser> userManager, IEmployeeService employeeService, IDepartmentService departmentService, IDesignationService designationService, ITeamService teamservice, IMapper mapper)
         {
+            _userManager = userManager;
             _employeeService = employeeService;
             _departmentService = departmentService;
             _designationService = designationService;
@@ -101,7 +104,29 @@ namespace ClothingPartnerAPI.Controllers
                 var result = _employeeService.Add(newEmployee);
                 response.Data = newEmployee;
                 response.Message = "Employee added successfully.";
-                return Ok(response);
+
+                //add ApplicationUser and associate to the new created employee
+                var user = new ApplicationUser()
+                {
+                    UserName = employeeCreateDTO.CompanyEmail.Split('@')[0].ToString(),
+                    Email = employeeCreateDTO.CompanyEmail,
+                    EmployeeId = newEmployee.EmployeeId
+                };
+                var userResult = _userManager.CreateAsync(user, employeeCreateDTO.Password).Result;
+                if (userResult.Succeeded)
+                {
+                    // User created successfully
+                    return Ok(response);
+                }
+                else
+                {
+                    //rollback employee creation
+                    _employeeService.Delete(newEmployee.EmployeeId);
+                    
+                    response.Error.Message = "Error creating user.";
+                    response.Error.Code = 500;
+                    return StatusCode(500, response);
+                }
             }
             catch (Exception e)
             {
