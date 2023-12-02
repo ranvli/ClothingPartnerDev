@@ -6,7 +6,7 @@
     <div class="info">
       <a data-toggle="collapse" :aria-expanded="!isClosed" @click="toggleMenu" href="#">
          <span>
-            {{$store.state.user.name }} | {{$store.state.user.username }} 
+            {{user }} 
            <b class="caret"></b>
         </span>
         <p>/src/components/UIComponents/SidebarPlugin/UserMenu.vue</p>
@@ -44,6 +44,7 @@
 </template>
 <script>
   import { CollapseTransition } from 'vue2-transitions'
+  import { mapState } from 'vuex';
   
 
   export default {
@@ -52,13 +53,17 @@
     },
     data() {
       return {
-        isClosed: true
+        isClosed: true,
+        //user: this.$store.state.user.username
       }
     },
     methods: {
       toggleMenu() {
         this.isClosed = !this.isClosed
       }
+    },
+    computed: {
+      ...mapState(['user']),
     }
   }
 </script>

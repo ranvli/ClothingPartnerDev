@@ -37,7 +37,6 @@
 </template>
 <script>
   import { Card, Checkbox, Button } from 'src/components/UIComponents';
-
   import { mapActions} from 'vuex'
 
   // import AppNavbar from './Layout/AppNavbar'
@@ -68,7 +67,8 @@
             console.log('Response en Pantalla Login: ', response)
             if (response.success) {
               // El inicio de sesión fue exitoso, redirigir a la página del perfil del usuario
-              this.$router.push({ name: 'User Page' }); 
+               this.$router.push({ name: 'User Page' }); 
+              // this.$router.push({ name: '' });
             } else {
               // Manejar un inicio de sesión fallido
               // alert('Inicio de sesión fallido. Por favor, verifica tus credenciales.');
@@ -86,8 +86,8 @@
     data() {
       return {
         form: {
-          username: '',
-          password: ''
+          username: 'admin',
+          password: 'Pa$$w0rd'
         },
         error: ''
       }

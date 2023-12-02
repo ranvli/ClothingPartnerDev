@@ -1,13 +1,9 @@
+<!-- Basada en PaginatedTables -->
 <template>
   <div class="row">
     <div class="col-md-12">
-      <h4 class="title">Custom table with pagination</h4>
-      <p class="category">
-        We combine <a href="http://element.eleme.io/#/en-US/component/quickstart" target="_blank" rel="noopener">Element-UI</a>
-        table functionalities together with a custom pagination component
-        which should provide a very good starting point to integrate tables in your application.
-        Check out more functionalities at <a href="http://element.eleme.io/#/en-US/component/table" target="_blank" rel="noopener">Element-UI table documentation</a>.
-       </p>
+      <h4 class="title">Employees</h4>
+      
     </div>
     <div class="col-md-12 card">
       <div class="card-header">
@@ -81,22 +77,28 @@
     </div>
   </div>
 </template>
+
 <script>
   import Vue from 'vue'
   import {Table, TableColumn, Select, Option} from 'element-ui'
   import PPagination from 'src/components/UIComponents/Pagination.vue'
   import users from './users'
+  import { mapActions, mapGetters } from 'vuex';
   Vue.use(Table)
   Vue.use(TableColumn)
   Vue.use(Select)
   Vue.use(Option)
+
+
   export default{
     components: {
       PPagination
     },
     computed: {
+      ...mapGetters('employees', ['getAllEmployees']),
       pagedData () {
-        return this.tableData.slice(this.from, this.to)
+        //return this.tableData.slice(this.from, this.to);
+        return this.getAllEmployees.slice(this.from, this.to)
       },
       /***
        * Searches through table data and returns a paginated array.
@@ -106,12 +108,13 @@
        */
       queriedData () {
         if (!this.searchQuery) {
-          this.pagination.total = this.tableData.length
+          this.pagination.total = this.getAllEmployees.length
           return this.pagedData
         }
-        let result = this.tableData
+        let result = this.getAllEmployees
           .filter((row) => {
             let isIncluded = false
+            console.log('Row en queriedData: ',row)
             for (let key of this.propsToSearch) {
               let rowValue = row[key].toString()
               if (rowValue.includes && rowValue.includes(this.searchQuery)) {
@@ -134,8 +137,8 @@
         return this.pagination.perPage * (this.pagination.currentPage - 1)
       },
       total () {
-        this.pagination.total = this.tableData.length
-        return this.tableData.length
+        this.pagination.total = this.getAllEmployees.length
+        return this.getAllEmployees.length
       }
     },
     data () {
@@ -147,33 +150,35 @@
           total: 0
         },
         searchQuery: '',
-        propsToSearch: ['name', 'email', 'age'],
+        propsToSearch: ['fullName', 'personalEmail', 'phone'],
         tableColumns: [
           {
-            prop: 'name',
-            label: 'Name',
+            prop: 'employeeId',
+            label: 'Employee Id',
             minWidth: 200
           },
           {
-            prop: 'email',
-            label: 'Email',
+            prop: 'fullName',
+            label: 'Full Name',
             minWidth: 250
           },
           {
-            prop: 'age',
-            label: 'Age',
+            prop: 'personalEmail',
+            label: 'Personal Email',
             minWidth: 100
           },
           {
-            prop: 'salary',
-            label: 'Salary',
+            prop: 'phone',
+            label: 'Phone',
             minWidth: 120
           }
         ],
-        tableData: users
+        tableData: this.getAllEmployees,
       }
     },
     methods: {
+      // ...createNamespacedHelpers('employees'),
+      ...mapActions('employees',['fetchEmployees']),
       handleLike (index, row) {
         alert(`Your want to like ${row.name}`)
       },
@@ -181,11 +186,21 @@
         alert(`Your want to edit ${row.name}`)
       },
       handleDelete (index, row) {
-        let indexToDelete = this.tableData.findIndex((tableRow) => tableRow.id === row.id)
+        let indexToDelete = this.employees.findIndex((tableRow) => tableRow.id === row.id)
         if (indexToDelete >= 0) {
           this.tableData.splice(indexToDelete, 1)
         }
-      }
+      },
+      async fetchEmployeeData() {
+        await this.fetchEmployees();
+      },
+    },
+    async created() {
+      await this.fetchEmployeeData();
+      // this.$nextTick(()=>{
+        console.log('Empleados en el componente: ',this.getAllEmployees);
+      // })
+      
     }
   }
 </script>

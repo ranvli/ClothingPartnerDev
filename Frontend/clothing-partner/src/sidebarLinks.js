@@ -8,12 +8,10 @@ export default [
     name: 'Employees',
     icon: 'nc-icon nc-book-bookmark',
     children: [
- 
       {
         name: 'Create User / Employee',
-        path: '/pages/employeesTable' 
-      },
-      
+        path: '/employees/paginated'
+      },  
     ]
   },
 ] 
