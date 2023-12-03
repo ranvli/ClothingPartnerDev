@@ -32,6 +32,24 @@ const employeesModule = {
           console.error('Error al obtener datos desde el API:', error);
           return { success: false, error};
         }
+      },
+      async deleteEmployee({ rootState, commit }, employee){
+        console.log('Borrar en store: ', employee)
+        const apiUrl = rootState.apiBaseUrl;
+        try {
+          //const loginUrl = `${state.apiBaseUrl}Auth/user-login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+          const headers = {Authorization:  `Bearer ${rootState.token}` };
+          const employeeUrl = `${apiUrl}Employee/employee-delete?employeeId=${employee.employeeId}`;
+          const response = await axios.delete(employeeUrl, {headers});
+          if(response.status === 200){
+            return true;
+          }
+          else {
+            return false;
+          }
+        } catch (error) {
+          console.error('Error deleting', error)
+        }
       }
       // Otras acciones relacionadas con empleados
     },

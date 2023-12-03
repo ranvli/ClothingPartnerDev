@@ -6,7 +6,7 @@
     <div class="info">
       <a data-toggle="collapse" :aria-expanded="!isClosed" @click="toggleMenu" href="#">
          <span>
-            {{user }} 
+            {{ user }} 
            <b class="caret"></b>
         </span>
         <p>/src/components/UIComponents/SidebarPlugin/UserMenu.vue</p>
