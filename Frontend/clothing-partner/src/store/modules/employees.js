@@ -96,10 +96,16 @@ const employeesModule = {
         console.log('Employee to be updated: ', employee);
         try {
           const employeeId = employee.employeeId;
-          delete employee.employeeId;
-          employee.department = 1;
-          employee.designation = 1;
-          employee.team = 1;
+          console.log('Id del empleado a modificar',employeeId);
+          //delete employee.employeeId;
+          // employee.department = 1;
+          // employee.designation = 1;
+          // employee.team = 1;
+          employee = {
+            ...employee,
+            recentPicture : "prueba.png"
+          };
+          console.log('Employee a modificar: ',employee); 
           const headers = {Authorization: `Bearer ${rootState.token}` };
           const employeeUrl = `${apiUrl}Employee/employee-update?employeeId=${employeeId}`;
           const response = await axios.put(employeeUrl, employee, {headers});

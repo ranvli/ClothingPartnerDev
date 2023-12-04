@@ -50,9 +50,13 @@ namespace ClothingPartnerAPI.DAL.Context
             };
 
             // Add initial user to db
-            bool initialSeed = true;
-            var existingUser = _userManager.FindByNameAsync(initialUser.UserName).Result;
-            
+            bool initialSeed = false;
+
+            var existingUser = initialSeed ?  _userManager.FindByNameAsync(initialUser.UserName).Result : null;
+
+   
+
+
             if (initialSeed && existingUser == null)
             {
                 try
