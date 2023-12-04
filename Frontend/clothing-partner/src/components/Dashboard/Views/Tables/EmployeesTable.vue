@@ -27,7 +27,7 @@
         </div>
         <div class="col-sm-6">
           <div class="pull-right">
-            <p-button type="success" size="sm" ><i class="fa fa-add"></i>Add Employee</p-button>
+            <p-button type="success" size="sm" @click="handleAdd()"><i class="fa fa-add"></i>Add Employee</p-button>
           </div>
           
           <div class="pull-right">
@@ -83,59 +83,6 @@
         </div>
       </div>
     </div>
-    <!-- <modal :show.sync="modals.classic" width="80%" headerClasses="justify-content-center">
-      <validationObserver v-slot="{ handleSubmit }">
-        <form @submit.prevent="handleSubmit(submit)">
-          <div class="card" width="80%">
-            <div class="card-header">
-              <h4 class="card-title" v-if="selectedEmployee">
-                {{ selectedEmployee.fullName }}
-              </h4>
-            </div>
-            <div class="card-body">
-              <div class="col-md-8">
-                <div class="form-group">
-                  <label >Full Name</label>
-                  <ValidationProvider 
-                    name="fullName"
-                    rules="required" 
-                    v-slot="{ passed, failed}">
-                    <fg-input type="text" 
-                      :error="failed ? 'The name field is required': null"
-                      :hasSuccess="passed"
-                      :name="fullName" v-model="selectedEmployee.fullName">
-
-                    </fg-input>
-                  </ValidationProvider>
-                  <label >Personal Email</label>
-                  <ValidationProvider 
-                    name="fullName"
-                    rules="required" 
-                    v-slot="{ passed, failed}">
-                    <fg-input type="text" 
-                      :error="failed|email ? 'The name field is required': null"
-                      :hasSuccess="passed"
-                      :name="fullName" v-model="selectedEmployee.personalEmail">
-
-                    </fg-input>
-                  </ValidationProvider>
-                </div>
-              </div>
-              
-            </div>
-          </div>
-        </form>
-      </validationObserver>
-      <template slot="footer">
-        <div class="left-side">
-          <p-button type="success" link @click="modals.classic = false">Accept</p-button>
-        </div>
-        <div class="divider"></div>
-        <div class="right-side">
-          <p-button type="danger" link @click="modals.classic = false">Cancel</p-button>
-        </div>
-      </template>
-    </modal> -->
     <modal :show.sync="modals.mini"
           class="modal-primary"
           :show-close="false"
@@ -166,7 +113,9 @@
   //import users from './users'
   import { mapActions, mapGetters } from 'vuex';
   import { extend } from "vee-validate";
-  import { required, email } from "vee-validate/dist/rules";
+  import { required, email } from "vee-validate/dist/rules"
+
+  //import { router } from '@/main'
 
   Vue.use(Table)
   Vue.use(TableColumn)
@@ -271,13 +220,24 @@
       }
     },
     methods: {
-      ...mapActions('employees',['fetchEmployees','deleteEmployee']),
+      ...mapActions('employees',['fetchEmployees','deleteEmployee','getEmployeeById']),
       //...mapActions('employees',['deleteEmployee']),
+      handleAdd(index){
+        const newEmployee = {};
+        const result = this.getEmployeeById(newEmployee);
+        if(result) {
+          this.$router.push({name: 'Employee Profile'});
+        }
+      },
       handleEdit (index, row) {
         console.log('Row a Editar: ', row);
         // alert(`Your want to edit ${row.fullName}`);
         this.selectedEmployee = row;
-        this.modals.classic = true;
+        const result = this.getEmployeeById(this.selectedEmployee);
+        if(result) {
+          this.$router.push({name: 'Employee Profile'});
+        }
+
       },
       handleDelete (index, row) {
         console.log('Row en Delete: ', row)
