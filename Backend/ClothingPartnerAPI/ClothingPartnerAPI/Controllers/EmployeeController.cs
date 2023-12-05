@@ -149,6 +149,16 @@ namespace ClothingPartnerAPI.Controllers
                 var result = _employeeService.Delete(employeeId);
                 if (result)
                 {
+                    //delete ApplicationUser associated to the employee
+                    var user = _userManager.FindByIdAsync(employeeId.ToString()).Result;
+                    var userResult = _userManager.DeleteAsync(user).Result;
+                    if (!userResult.Succeeded)
+                    {
+                        response.Error.Message = "Error deleting user.";
+                        response.Error.Code = 500;
+                        return StatusCode(500, response);
+                    }
+
                     response.Message = "Ok";
                     return Ok(response);
                 }
@@ -192,7 +202,7 @@ namespace ClothingPartnerAPI.Controllers
                 }
                 else {
                     response.Error.Message = "Employee not found.";
-                    response.Error.Code = 404; // Código de recurso no encontrado
+                    response.Error.Code = 404; 
                     return NotFound(response);
                 }
                 

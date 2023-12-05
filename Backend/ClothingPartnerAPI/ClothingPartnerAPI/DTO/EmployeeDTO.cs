@@ -5,7 +5,6 @@ namespace ClothingPartnerAPI.DTO
 {
     public class EmployeeDTO
     {
-        public int EmployeeId { get; set; }
         public string FullName { get; set; }
 
         public string Password { get; set; }
@@ -15,12 +14,8 @@ namespace ClothingPartnerAPI.DTO
         public string RecentPicture { get; set; }
         public string Phone { get; set; }
         public int DesignationId { get; set; }
-        //public Designation Designation { get; set; } = new Designation();
         public int DepartmentId { get; set; }
-        //public Department Department { get; set; } = new Department();
         public int TeamId { get; set; }
-        //public Team Team { get; set; } = new Team();
-        //public Employee Supervisor { get; set; }
 
         public string EmergencyPhone { get; set; }
         public string RecentAddress { get; set; }
@@ -32,7 +27,6 @@ namespace ClothingPartnerAPI.DTO
         public string PassportNumber { get; set; }
         public string DrivingLicense { get; set; }
         public string SalaryBankAccount { get; set; }
-
         public string WeChatId { get; set; }
         public string WhatsappNumber { get; set; }
         public string LastCompanyNOC { get; set; }

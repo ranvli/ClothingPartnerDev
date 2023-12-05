@@ -1,9 +1,14 @@
-﻿dotnet ef migrations add InitialApplicationDbMigration --context ApplicationDbContext --output-dir Migrations/ApplicationDb
+﻿With dotnet CLI:
+dotnet ef migrations add InitialApplicationDbMigration --context ApplicationDbContext --output-dir Migrations/ApplicationDb
 dotnet ef migrations add InitialClothingPartnerDbMigration --context ClothingPartnerContext --output-dir Migrations/ClothingPartnerDb
-
 
 dotnet ef database update --context ApplicationDbContext
 dotnet ef database update --context ClothingPartnerContext
+
+
+With package manager console:
+Add-Migration NameOfMigration -Context ApplicationDbContext
+Add-migration NameOfMigration -Context ClothingPartnerContext
 
 update-database -Context ApplicationDbContext
 update-database -Context ClothingPartnerContext
