@@ -54,9 +54,6 @@ namespace ClothingPartnerAPI.DAL.Context
 
             var existingUser = initialSeed ?  _userManager.FindByNameAsync(initialUser.UserName).Result : null;
 
-   
-
-
             if (initialSeed && existingUser == null)
             {
                 try
