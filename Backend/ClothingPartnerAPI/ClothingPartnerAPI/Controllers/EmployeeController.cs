@@ -146,14 +146,18 @@ namespace ClothingPartnerAPI.Controllers
             
             try
             {
+                var employee = _employeeService.Get(employeeId);
                 var result = _employeeService.Delete(employeeId);
+
                 if (result)
                 {
                     //delete ApplicationUser associated to the employee
-                    var user = _userManager.FindByIdAsync(employeeId.ToString()).Result;
+                    
+                    var user = _userManager.FindByEmailAsync(employee.CompanyEmail).Result;
+
                     if (user != null)
                     { 
-                    var userResult = _userManager.DeleteAsync(user).Result;
+                        var userResult = _userManager.DeleteAsync(user).Result;
                         if (!userResult.Succeeded)
                         {
                             response.Error.Message = "Error deleting user.";
