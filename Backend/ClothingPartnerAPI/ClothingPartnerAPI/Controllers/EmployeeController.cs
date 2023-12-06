@@ -151,19 +151,23 @@ namespace ClothingPartnerAPI.Controllers
                 {
                     //delete ApplicationUser associated to the employee
                     var user = _userManager.FindByIdAsync(employeeId.ToString()).Result;
+                    if (user != null)
+                    { 
                     var userResult = _userManager.DeleteAsync(user).Result;
-                    if (!userResult.Succeeded)
-                    {
-                        response.Error.Message = "Error deleting user.";
-                        response.Error.Code = 500;
-                        return StatusCode(500, response);
+                        if (!userResult.Succeeded)
+                        {
+                            response.Error.Message = "Error deleting user.";
+                            response.Error.Code = 500;
+                            return StatusCode(500, response);
+                        }
                     }
 
+                    response.Data = null;
                     response.Message = "Ok";
                     return Ok(response);
                 }
                 else {
-                    response.Error.Message = "Internat error, not found";
+                    response.Error.Message = "Internal error, not found";
                     response.Error.Code = 404;
                     return NotFound(response);
                 }
