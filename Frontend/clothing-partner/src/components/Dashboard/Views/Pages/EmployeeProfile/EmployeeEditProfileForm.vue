@@ -83,7 +83,7 @@
               type="text"
               label="Department"
               placeholder="Department"
-              v-model="employeeToEdit.department"
+              v-model="employeeToEdit.department.departmentId"
             >
             </fg-input>
           </div>
@@ -92,7 +92,7 @@
               type="text"
               label="Designation"
               placeholder="Designation"
-              v-model="employeeToEdit.designation"
+              v-model="employeeToEdit.designation.designationId"
             >
             </fg-input>
           </div>
@@ -104,7 +104,7 @@
               type="text"
               label="Team"
               placeholder="Team"
-              v-model="employeeToEdit.team"
+              v-model="employeeToEdit.team.teamId"
             >
             </fg-input>
           </div>

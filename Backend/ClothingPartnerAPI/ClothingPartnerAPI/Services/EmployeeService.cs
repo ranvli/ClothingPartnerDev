@@ -1,6 +1,8 @@
 ﻿using ClothingPartnerAPI.DAL.Contracts;
 using ClothingPartnerAPI.Models;
 using ClothingPartnerAPI.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace ClothingPartnerAPI.Services
 {
@@ -12,5 +14,7 @@ namespace ClothingPartnerAPI.Services
         {
             Repository = repository;
         }
+
+        
     }
 }

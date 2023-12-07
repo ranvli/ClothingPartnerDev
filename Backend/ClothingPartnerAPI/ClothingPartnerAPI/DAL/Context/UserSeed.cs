@@ -70,7 +70,7 @@ namespace ClothingPartnerAPI.DAL.Context
                 }
                 catch (Exception ex)
                 {
-                    throw;
+                    throw ex;
                 }
             }
         }

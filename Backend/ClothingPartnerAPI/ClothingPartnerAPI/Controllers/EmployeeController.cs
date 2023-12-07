@@ -42,6 +42,9 @@ namespace ClothingPartnerAPI.Controllers
             try
             {
                 Employee employee = _employeeService.Get(id);
+                employee.Department = _departmentService.Get(employee.DepartmentId);
+                employee.Designation = _designationService.Get(employee.DesignationId);
+                employee.Team = _teamService.Get(employee.TeamId);
                 response.Data = employee;
                 response.Message = "Ok";
                 return Ok(response);
@@ -74,6 +77,12 @@ namespace ClothingPartnerAPI.Controllers
             try
             {
                 var employees = _employeeService.GetAll();
+                foreach (var employee in employees)
+                {
+                    employee.Department = _departmentService.Get(employee.DepartmentId);
+                    employee.Designation = _designationService.Get(employee.DesignationId);
+                    employee.Team = _teamService.Get(employee.TeamId);
+                }
                 response.Data = employees.ToList();
                 response.Message = "Ok";
                 return Ok(response);

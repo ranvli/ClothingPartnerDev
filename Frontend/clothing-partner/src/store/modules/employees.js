@@ -103,7 +103,11 @@ const employeesModule = {
           // employee.team = 1;
           employee = {
             ...employee,
-            recentPicture : "prueba.png"
+            recentPicture : "prueba.png",
+            password: "string",
+            departmentId : employee.department.departmentId,
+            designationId : employee.designation.designationId,
+            teamId : employee.team.teamId
           };
           console.log('Employee a modificar: ',employee); 
           const headers = {Authorization: `Bearer ${rootState.token}` };
