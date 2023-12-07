@@ -223,7 +223,39 @@
       ...mapActions('employees',['fetchEmployees','deleteEmployee','getEmployeeById']),
       //...mapActions('employees',['deleteEmployee']),
       handleAdd(index){
-        const newEmployee = {};
+        const newEmployee = {
+          "employeeId": 0,
+          "fullName": "",
+          "personalEmail": "",
+          "companyEmail": "",
+          "recentPicture": "",
+          "phone": "",
+          "designation": {
+              "designationId": 1,
+              "description": "Designation 1"
+          },
+          "department": {
+              "departmentId": 1,
+              "description": "Department 1"
+          },
+          "team": {
+              "teamId": 1,
+              "teamDesciption": "Team 1"
+          },
+          "emergencyPhone": "",
+          "recentAddress": "",
+          "permanentAddress": "",
+          "bloodGroup": 1,
+          "dateOfBirth": "",
+          "dateOfJoining": "",
+          "voterId": "",
+          "passportNumber": "",
+          "drivingLicense": "",
+          "salaryBankAccount": "",
+          "weChatId": "",
+          "whatsappNumber": "",
+          "lastCompanyNOC": ""
+        };
         const result = this.getEmployeeById(newEmployee);
         if(result) {
           this.$router.push({name: 'Employee Profile'});

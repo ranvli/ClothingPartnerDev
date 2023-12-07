@@ -49,7 +49,7 @@ const store = new Vuex.Store({
        
             return {success  : true};
           } else {
-            console.error('Wrong Credentials'); 
+            console.error('Not Connected:', response); 
             clearCookies()
             return {success  : false};
           }

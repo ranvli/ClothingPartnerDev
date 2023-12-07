@@ -70,7 +70,7 @@ const employeesModule = {
         console.log('Editar en store: ', employee)
         const apiUrl = rootState.apiBaseUrl;
         try {
-          if(Object.keys(employee) == 0){
+          if(employee.employeeId === 0){
             console.log('viene el objeto vacío');
             commit('SET_SELECTED_EMPLOYEE', employee);
             return true;
@@ -79,8 +79,9 @@ const employeesModule = {
           const headers = {Authorization:  `Bearer ${rootState.token}` };
           const employeeUrl = `${apiUrl}Employee/employee-get-by-id?Id=${employee.employeeId}`;
           const response = await axios.get(employeeUrl, {headers});
-          console.log('Data en Respose de getEmployeeById: ', response)
+          console.log('Data en Response de getEmployeeById: ', response)
           if(response.status === 200){
+            console.log('modifica el empleado en el store', response.data.data);
             commit('SET_SELECTED_EMPLOYEE', response.data.data);
             return true;
           }
@@ -97,10 +98,6 @@ const employeesModule = {
         try {
           const employeeId = employee.employeeId;
           console.log('Id del empleado a modificar',employeeId);
-          //delete employee.employeeId;
-          // employee.department = 1;
-          // employee.designation = 1;
-          // employee.team = 1;
           employee = {
             ...employee,
             recentPicture : "prueba.png",
