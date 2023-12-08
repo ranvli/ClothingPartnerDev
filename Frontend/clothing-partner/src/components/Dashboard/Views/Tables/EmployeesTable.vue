@@ -265,7 +265,8 @@
         console.log('Row a Editar: ', row);
         // alert(`Your want to edit ${row.fullName}`);
         this.selectedEmployee = row;
-        const result = this.getEmployeeById(this.selectedEmployee);
+        const result = this.getEmployeeById(this.selectedEmployee); 
+        console.info('Selected Employee en handle edit:',this.selectedEmployee)
         if(result) {
           this.$router.push({name: 'Employee Profile'});
         }

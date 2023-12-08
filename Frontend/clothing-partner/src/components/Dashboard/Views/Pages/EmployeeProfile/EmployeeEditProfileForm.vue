@@ -371,13 +371,51 @@
               </div>
             </div>
           </div>
-
+          <div class="row">
+            <div class="col-md-6">
+              <ValidationProvider
+                vid="confirmation"
+                name="password"
+                rules="required"
+                v-slot="{ passed, failed }"
+              >
+                <fg-input
+                  type="password"
+                  name="password"
+                  :error="failed ? 'The Password field is required' : null"
+                  :hasSuccess="passed"
+                  label="Password"
+                  placeholder="Password"
+                  v-model="employeeToEdit.password"
+                >
+                </fg-input>
+              </ValidationProvider>
+            </div>
+            <div class="col-md-6">
+              <ValidationProvider
+                name="passwordConfirm"
+                rules="required|confirmed:confirmation"
+                v-slot="{ passed, failed }"
+              >
+                <fg-input
+                  type="password"
+                  name="passwordConfirm"
+                  :error="failed ? 'Password does not match' : null"
+                  :hasSuccess="passed"
+                  label="Confirm Password"
+                  placeholder="Confirm Password"
+                  v-model="employeeToEdit.passwordCondirm"
+                >
+                </fg-input>
+              </ValidationProvider>
+            </div>
+          </div>
           <div class="text-center">
             <!--  <button type="submit" class="btn btn-info btn-fill btn-wd" @click.prevent="updateProfile">
             Update Profile
           </button> -->
             <p-button
-              v-if="(employeeToEdit.employeeId = 0)"
+              v-if="employeeToEdit.employeeId !== 0"
               type="success"
               link
               native-type="submit"
@@ -398,12 +436,13 @@
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
-import { required, email, numeric } from "vee-validate/dist/rules";
+import { required, email, numeric, confirmed } from "vee-validate/dist/rules";
 import { extend } from "vee-validate";
 
 extend("email", email);
 extend("required", required);
 extend("numeric", numeric);
+extend("confirmed", confirmed);
 
 export default {
   data() {
@@ -433,26 +472,34 @@ export default {
     },
   },
   methods: {
-    ...mapActions("employees", ["updateEmployee"]),
+    ...mapActions("employees", ["updateEmployee", "addEmployee"]),
     updateProfile() {
       alert("Your data: " + JSON.stringify(this.selectedEmployee));
     },
     handleCancel() {
       this.$router.push({ name: "Paginated Tables" });
     },
-    handleSubmit() {
+    submit() {
       // alert('Your data: ' + JSON.stringify(this.employeeToEdit))
+
       console.log("Employee en handleSubmit", this.employeeToEdit);
-      this.updateEmployee(this.employeeToEdit).then((response) => {
-        if (response) {
-          this.$router.push({ name: "Paginated Tables" });
-        } else {
-          console.log("Update Falló", response);
-        }
-      });
-    },
-    handleAdd() {
-      console.log("Agregar");
+      if (this.employeeToEdit.employeeId !== 0) {
+        this.updateEmployee(this.employeeToEdit).then((response) => {
+          if (response) {
+            this.$router.push({ name: "Paginated Tables" });
+          } else {
+            console.log("Update Failed", response);
+          }
+        });
+      } else {
+        this.addEmployee(this.employeeToEdit).then((response) => {
+          if (response) {
+            this.$router.push({ name: "Paginated Tables" });
+          } else {
+            console.log("Add Failed", response);
+          }
+        });
+      }
     },
   },
 };

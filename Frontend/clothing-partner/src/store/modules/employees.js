@@ -89,7 +89,7 @@ const employeesModule = {
             return false;
           }
         } catch (error) {
-          console.error('Error deleting', error)
+          console.error('Error, employee not found !!', error)
         }
       },
       async updateEmployee({ rootState, commit }, employee){
@@ -123,24 +123,23 @@ const employeesModule = {
       },
       async addEmployee({ rootState, commit }, employee){
         const apiUrl = rootState.apiBaseUrl;
-        console.log('Employee to be updated: ', employee);
+        console.log('Employee to be added: ', employee);
         try {
-          const employeeId = employee.employeeId;
-          delete employee.employeeId;
-          employee.department = 1;
-          employee.designation = 1;
-          employee.team = 1;
+          employee.departmentId = 1;
+          employee.designationId = 1;
+          employee.teamId = 1;
+          employee.password = "1740523Ampa$";
           const headers = {Authorization: `Bearer ${rootState.token}` };
           const employeeUrl = `${apiUrl}Employee/employee-add`;
           const response = await axios.post(employeeUrl, employee, {headers});
           if(response.status === 200){
-            commit('UPDATE_EMPLOYEE', employee.employeeId);
+            //commit('UPDATE_EMPLOYEE', employee.employeeId);
             return true
           } else { 
             return false
           }
         } catch (error) {
-          console.error('Error Updating !!!', error);
+          console.error('Error Adding !!!', error);
           return false
         }
       }

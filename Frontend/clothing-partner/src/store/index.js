@@ -18,8 +18,8 @@ const store = new Vuex.Store({
   state: {
     user: null, 
     token: null,
-    //apiBaseUrl: "http://4.157.254.214:8080/api/",
-    apiBaseUrl: "https://localhost:7214/api/",
+    apiBaseUrl: "http://4.157.254.214:8080/api/",
+    //apiBaseUrl: "https://localhost:7214/api/",
   },
   mutations: {
     setUser(state, user) {
